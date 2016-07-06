@@ -4,7 +4,7 @@
 		?>
 		<div class="qComment">
 			<div class="qCommentUserName">
-				<?php echo $QUser->getUserInfo($Comment["UserId"],"UserName"); ?>
+				<?php echo $Q["User"]->getUserInfo($Comment["UserId"],"UserName"); ?>
 			</div>
 			<div class="qTwoDot">
 				:
