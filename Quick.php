@@ -1,20 +1,25 @@
 <?php
 	class Quick{
 		public $Settings;
+		public $QuickMvc;
 		function __construct(){
-			spl_autoload_register("Quick::AutoLoad");
+			spl_autoload_register("Quick::autoload");
 		}
-		public static function autoLoad($ClassName = ""){
+		public static function autoload($ClassName = ""){
 			$ClassMap = self::ClassMap();
 			if(isset($ClassMap[$ClassName])){
 				include __DIR__."/".$ClassMap[$ClassName];
 			}
 		}
-		public function set($Settings = array()){
-			$this->Settings = $Settings;
-		}
 		public function start(){
-			$QuickMvc = new QuickMvc($this->Settings);
+			$this->QuickMvc = new QuickMvc();
+			$this->Load = $this->QuickMvc->Load;
+			$Models = $this->QuickMvc->Models;
+			$this->Post = $Models[0];
+			$this->User = $Models[1];
+			$this->Category = $Models[2];
+			$this->Comment = $Models[3];
+			$this->IO = $Models[4];
 		}
 		public static function classMap(){
 			return array(
@@ -22,18 +27,4 @@
 			);
 		}
 	}
-	
-	$Quick = new Quick();
-	$Sets = array(
-		"Database" => array(
-			"type" => "mysql",
-			"server" => "localhost",
-			"port" => false,
-			"username" => "root",
-			"password" => "",
-			"dbname" => "quick"
-		)
-	);
-	$Quick->set($Sets);
-	$Quick->start();
 ?>
