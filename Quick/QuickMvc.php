@@ -27,6 +27,23 @@
 				
 			}
 		}
+		function uploadFile($Dest = false,$Target = false){
+			if(copy($Dest,AppPath."/Uploads/".$Target)){
+				return true;
+			}
+			return false;
+		}
+		function getFile($FileName = ""){
+			if(file_exists(AppPath."/Uploads/".$FileName) and $FileName != ""){
+				$FileType = filetype(AppPath."/Uploads/".$FileName);
+				header("Content-type: ".$FileType);
+				header('Content-Disposition: attachment; filename='.$FileName);
+				readfile(AppPath."/Uploads/".$FileName);
+			}
+			else{
+				header("HTTP/1.0 404 Not Found");
+			}
+		}
 		public static function classMap(){
 			return array(
 				"Q\Controller" => "QuickMvc/QController.php",

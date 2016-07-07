@@ -5,6 +5,6 @@
 		"port" => false,
 		"username" => "root",
 		"password" => "",
-		"dbname" => "quick"
+		"dbname" => "prophecy"
 	);
 ?>

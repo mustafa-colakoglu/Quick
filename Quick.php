@@ -2,6 +2,12 @@
 	class Quick{
 		public $Settings;
 		public $QuickMvc;
+		public $Post;
+		public $User;
+		public $Category;
+		public $Comment;
+		public $IO;
+		public $thm;
 		function __construct(){
 			spl_autoload_register("Quick::autoload");
 		}
@@ -13,6 +19,7 @@
 		}
 		public function start(){
 			$this->QuickMvc = new QuickMvc();
+			$this->thm = $this->QuickMvc->thm;
 			$this->Load = $this->QuickMvc->Load;
 			$Models = $this->QuickMvc->Models;
 			$this->Post = $Models[0];
@@ -20,6 +27,12 @@
 			$this->Category = $Models[2];
 			$this->Comment = $Models[3];
 			$this->IO = $Models[4];
+		}
+		function uploadFile($Dest = false,$Target = false){
+			return $this->QuickMvc->uploadFile($Dest, $Target);
+		}
+		function getFile($FileName = ""){
+			$this->QuickMvc->getFile($FileName);
 		}
 		public static function classMap(){
 			return array(
