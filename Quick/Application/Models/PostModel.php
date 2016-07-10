@@ -7,8 +7,23 @@
 			if($PostDate == ""){
 				$PostDate = date("d.m.Y");
 			}
-			$this->insert("posts","PostUserId,PostTitle,Post,PostDate,PostTime,CategoryId","'$PostUserId','$PostTitle','$Post','$PostDate','$PostTime','$CategoryId'");
-			return $this->lastInsertId();
+			$Link = $this->convertLink($PostTitle);
+			$this->insert("posts","PostUserId,Link,PostTitle,Post,PostDate,PostTime,CategoryId","'$PostUserId','$Link','$PostTitle','$Post','$PostDate','$PostTime','$CategoryId'");
+			$LastId = $this->lastInsertId();
+			$Link = $Link."-".$LastId;
+			$this->update("posts","Link='$Link'","PostId='$LastId'");
+			return $LastId;
+		}
+		function convertLink($Title = ""){
+			if(is_string($Title)){
+				$find = array('Ç', 'Ş', 'Ğ', 'Ü', 'İ', 'Ö', 'ç', 'ş', 'ğ', 'ü', 'ö', 'ı', '-');
+				$make = array('c', 's', 'g', 'u', 'i', 'o', 'c', 's', 'g', 'u', 'o', 'i', ' ');
+				$perma = strtolower(str_replace($find, $make, $Title));
+				$perma = preg_replace("@[^A-Za-z0-9\-_]@i", ' ', $perma);
+				$perma = trim(preg_replace('/\s+/',' ', $perma));
+				$perma = str_replace(' ', '-', $perma);
+				return $perma;
+			}
 		}
 		function updatePost($PostId = false,$Updates = false){
 			if($PostId){

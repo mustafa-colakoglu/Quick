@@ -22,6 +22,13 @@
 				$this->Load->view("Comment",$array);
 			}
 		}
-		function Post(){}
+		function Post($Post = array()){
+			if(is_array($Post)){
+				$array = array();
+				$array["Q"] = $this->Q;
+				$array["Post"] = $Post;
+				$this->Load->view("Post",$array);
+			}
+		}
 	}
 ?>

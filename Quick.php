@@ -34,6 +34,9 @@
 		function getFile($FileName = ""){
 			$this->QuickMvc->getFile($FileName);
 		}
+		function getFileBase64($FileName = ""){
+			return $this->QuickMvc->getFileBase64($FileName);
+		}
 		public static function classMap(){
 			return array(
 				"QuickMvc" => "Quick/QuickMvc.php"

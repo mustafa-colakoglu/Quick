@@ -35,7 +35,7 @@
 			}
 			return false;
 		}
-		function logout($Username = ""){
+		function logout(){
 			if($this->islogin()){
 				$_SESSION["QLogin"] = false;
 				unset($_SESSION["Username"]);
@@ -52,7 +52,10 @@
 		}
 		function islogin(){
 			if(isset($_SESSION["QLogin"])){
-				return true;
+				if($_SESSION["QLogin"]){
+					return true;
+				}
+				return false;
 			}
 			else{
 				return false;

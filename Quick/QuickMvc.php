@@ -44,6 +44,14 @@
 				header("HTTP/1.0 404 Not Found");
 			}
 		}
+		function getFileBase64($FileName = ""){
+			if(file_exists(AppPath."/Uploads/".$FileName) and $FileName != ""){
+				return filetype(AppPath."/Uploads/".$FileName).";base64,".base64_encode(file_get_contents(AppPath."/Uploads/".$FileName));
+			}
+			else{
+				header("HTTP/1.0 404 Not Found");
+			}
+		}
 		public static function classMap(){
 			return array(
 				"Q\Controller" => "QuickMvc/QController.php",

@@ -32,6 +32,7 @@
 			}
 		}
 		public function view($View = false,$Data = array()){
+			global $q;
 			extract($Data);
 			if(file_exists(AppPath."/Views/".$View."View".".php")){
 				include AppPath."/Views/".$View."View".".php";
